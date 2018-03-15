@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    </meta>
+
+    <title> EXCEL CREATION OF PUBLICATIONS </title></head>
+
+<script src="http://pleger.cl/gp/libs/jquery.js" charset="utf-8"></script>
+<script src="http://pleger.cl/gp/libs/exceljs.js" charset="utf-8"></script>
+<script src="http://pleger.cl/gp/libs/FileSaver.js" charset="utf-8"></script>
+
+<script>
+// https://github.com/guyonroche/exceljs/issues/354
+// https://github.com/guyonroche/exceljs/issues/402
+
+    'use strict';
+
+    $(document).ready(function () {
+        var data = [
+            ['a', 'b', 'c'],
+            [1, 2, 3]
+        ];
+
+        var workbook = new ExcelJS.Workbook();
+
+        var worksheet = workbook.addWorksheet("Sheet");
+
+        worksheet.addRows(data);
+
+        var buff = workbook.xlsx.writeBuffer().then(function (data) {
+            var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+            saveAs(blob, "publications.xlsx");
+        });
+    });
+</script>
+
+<body>
+</body>
+
+</html>
+    
